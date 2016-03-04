@@ -40,6 +40,7 @@
 			if(ws) ws.close();
 			
 			var url=currentSettings.url;
+			if (currentSettings.relative) url = 'ws://'+location.host+url
 			ws=new WebSocket(url);
 			
 			ws.onopen=onOpen;
@@ -76,6 +77,12 @@
 				name        : "url",
 				display_name: "URL",
 				type        : "text"
+			},
+			{
+				name         : "relative",
+				display_name : "Relative",
+				type         : "boolean",
+				default_value: false,
 			}
 		],
 		newInstance: function(settings, newInstanceCallback, updateCallback)
