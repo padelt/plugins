@@ -91,6 +91,14 @@
                 showInnerShadow: false,
                 valueFontColor: "#d3d4d4"
             });
+
+            $('path', gaugeElement).click(self.onClick.bind(self));
+            $('path', gaugeElement).bind('mousemove', _.debounce(self.onHover.bind(self), 10));
+            $('path', gaugeElement).bind('mouseover', self.mouseOver.bind(self));
+            $('path', gaugeElement).bind('mouseout', self.mouseOut.bind(self));
+            $('path', gaugeElement).css('cursor', 'pointer')
+
+            self.addFilter();
         }
 
 
@@ -138,10 +146,11 @@
 
         this.onClick = function(e) {
             e.preventDefault();
+            var val = calcPosition(e.offsetX, e.offsetY).toFixed(1)
+
             if (currentSettings.click_value) {
-                var val = calcPosition(e.offsetX, e.offsetY).toFixed(1)
-                lastVal = val
                 gaugeObject.refresh(val)
+                lastVal = val
             }
 
             this.mouseOut()
@@ -152,13 +161,6 @@
             rendered = true;
             $(element).append(titleElement).append($('<div class="gauge-widget-wrapper"></div>').append(gaugeElement));
             createGauge();
-            $('path', gaugeElement).click(this.onClick.bind(this));
-            $('path', gaugeElement).bind('mousemove', _.debounce(this.onHover.bind(this), 10));
-            $('path', gaugeElement).bind('mouseover', this.mouseOver.bind(this));
-            $('path', gaugeElement).bind('mouseout', this.mouseOut.bind(this));
-            $('path', gaugeElement).css('cursor', 'pointer')
-
-            this.addFilter();
         }
 
 
