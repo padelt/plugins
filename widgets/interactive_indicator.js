@@ -64,7 +64,7 @@
         this.onClick = function(e) { 
             e.preventDefault()
 
-            var new_val = !isOn
+            var new_val = !isOn;
             this.onCalculatedValueChanged('value', new_val);
             this.sendValue(currentSettings.callback, new_val);
         }
