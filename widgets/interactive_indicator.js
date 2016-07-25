@@ -22,6 +22,11 @@
                 type: "calculated"
             },
             {
+                name: "topic",
+                display_name: "Topic to send to (optional)",
+                type: "text"
+            },
+            {
                 name: "on_text",
                 display_name: "On Text",
                 type: "calculated"
@@ -66,6 +71,9 @@
 
             var new_val = !isOn;
             this.onCalculatedValueChanged('value', new_val);
+            if (!_.isUndefined(currentSettings.topic)) {
+                new_val = {'topic':currentSettings.topic, 'msg': new_val }
+            }
             this.sendValue(currentSettings.callback, new_val);
         }
 
